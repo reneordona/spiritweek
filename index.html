@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P3 Presents: HACLB Spirit Week — May 4–7</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,900&family=Montserrat:wght@500;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --cyan: #05c3de;
+    --cyan-soft: #a8ecf5;
+    --pink: #ff6fa3;
+    --yellow: #ffd23f;
+    --coral: #ff7a59;
+    --mint: #7ee8b8;
+    --lilac: #b794f4;
+    --cream: #fff8ec;
+    --ink: #0b1f33;
+    --ink-soft: #2a4660;
+  }
+
+  html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--ink);
+    background: var(--cream);
+  }
+
+  /* ========== STAGE ========== */
+  .stage {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at 15% 20%, #fff2d6 0%, transparent 45%),
+      radial-gradient(ellipse at 85% 85%, #d9f4fa 0%, transparent 50%),
+      radial-gradient(ellipse at 60% 10%, #ffe4ee 0%, transparent 40%),
+      var(--cream);
+  }
+
+  .shape {
+    position: absolute;
+    pointer-events: none;
+    z-index: 1;
+    animation: bob 6s ease-in-out infinite;
+  }
+  .shape:nth-child(odd) { animation-duration: 8s; animation-direction: alternate; }
+  .shape:nth-child(3n) { animation-duration: 7s; }
+
+  @keyframes bob {
+    0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
+    50%      { transform: translateY(-1.5vmin) rotate(calc(var(--r, 0deg) + 8deg)); }
+  }
+
+  .squiggle {
+    position: absolute;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.7;
+  }
+
+  /* ========== LAYOUT ========== */
+  .slide {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    padding: 3vmin 4vmin 3.5vmin;
+    gap: 2.2vmin;
+  }
+
+  /* ========== HEADER ========== */
+  .header {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 3vmin;
+    position: relative;
+  }
+
+  .logo-badge {
+    position: relative;
+    width: 12vmin;
+    height: 12vmin;
+    background: var(--ink);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.8vmin;
+    box-shadow: 0.6vmin 0.6vmin 0 var(--cyan);
+    transform: rotate(-4deg);
+  }
+  .logo-badge img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .title-zone {
+    position: relative;
+    text-align: center;
+    padding: 0 2vmin;
+  }
+
+  .presents {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.6vmin;
+    font-weight: 900;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 0.5vmin;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5vmin;
+  }
+  .presents::before, .presents::after {
+    content: '';
+    width: 4vmin;
+    height: 2px;
+    background: var(--ink-soft);
+  }
+  .presents .p3 {
+    color: var(--coral);
+    font-size: 2vmin;
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-style: italic;
+    letter-spacing: 0;
+  }
+
+  .kicker {
+    font-family: 'Caveat', cursive;
+    font-size: 2.8vmin;
+    font-weight: 700;
+    color: var(--coral);
+    transform: rotate(-2deg);
+    display: inline-block;
+    margin-top: 0.3vmin;
+    margin-bottom: -0.8vmin;
+  }
+
+  .kicker::before, .kicker::after {
+    content: '✦';
+    color: var(--yellow);
+    margin: 0 0.8vmin;
+    font-size: 0.8em;
+  }
+
+  .big-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: clamp(3rem, 10.5vmin, 14rem);
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    position: relative;
+    display: inline-block;
+  }
+
+  .big-title .spirit { display: inline-block; color: var(--ink); position: relative; }
+
+  .big-title .week {
+    display: inline-block;
+    font-style: italic;
+    color: var(--cyan);
+    position: relative;
+    margin-left: 0.5vmin;
+  }
+
+  .big-title .week::after {
+    content: '';
+    position: absolute;
+    left: 2%; right: -2%;
+    bottom: 0.3vmin;
+    height: 1vmin;
+    background: var(--yellow);
+    z-index: -1;
+    border-radius: 1vmin;
+    transform: rotate(-1.5deg);
+  }
+
+  .date-pill {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 1.5vmin 2.5vmin;
+    border-radius: 10vmin;
+    font-weight: 800;
+    font-size: 1.7vmin;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transform: rotate(3deg);
+    box-shadow: 0.5vmin 0.5vmin 0 var(--pink);
+    white-space: nowrap;
+  }
+  .date-pill .pill-date { color: var(--yellow); }
+
+  /* ========== DAYS ========== */
+  .days {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.2vmin;
+    align-items: stretch;
+    position: relative;
+    padding-top: 3.5vmin;
+  }
+
+  .day {
+    position: relative;
+    background: var(--cream);
+    border: 0.4vmin solid var(--ink);
+    border-radius: 3vmin;
+    padding: 3vmin 2.5vmin 2.5vmin;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0.8vmin 0.8vmin 0 var(--ink);
+  }
+
+  .day:nth-child(1) { transform: rotate(-1.5deg); background: #ffd9b8; }
+  .day:nth-child(2) { transform: rotate(1deg); background: #ffe4ec; }
+  .day:nth-child(3) { transform: rotate(-0.8deg); background: #dff6e5; }
+  .day:nth-child(4) { transform: rotate(1.5deg); background: #e8e0ff; }
+
+  .day-num-huge {
+    position: absolute;
+    top: 1vmin;
+    right: 2vmin;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 900;
+    font-size: 11vmin;
+    line-height: 1;
+    color: var(--ink);
+    opacity: 0.1;
+    pointer-events: none;
+  }
+
+  .day-tag {
+    display: inline-block;
+    padding: 0.9vmin 1.8vmin;
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 10vmin;
+    font-size: 1.6vmin;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    align-self: flex-start;
+    margin-bottom: 1.2vmin;
+  }
+
+  .day-date-small {
+    font-family: 'Caveat', cursive;
+    font-size: 3vmin;
+    font-weight: 700;
+    color: var(--ink-soft);
+    margin-bottom: 1.2vmin;
+  }
+
+  .day-icon-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 13vmin;
+    margin-bottom: 1.5vmin;
+    position: relative;
+  }
+
+  .day-icon-wrap::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12vmin;
+    height: 12vmin;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    z-index: 0;
+  }
+
+  .day-icon {
+    width: 11vmin;
+    height: 11vmin;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8.5vmin;
+    line-height: 1;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.4s ease;
+  }
+
+  .day-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    filter: drop-shadow(0.3vmin 0.4vmin 0 rgba(11, 31, 51, 0.2));
+  }
+
+  .day.active .day-icon {
+    animation: wiggle 1.2s ease-in-out infinite;
+  }
+
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(-8deg) scale(1); }
+    50%      { transform: rotate(8deg) scale(1.1); }
+  }
+
+  .day-theme {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: 3.6vmin;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 1.3vmin;
+  }
+
+  .day-theme .italic { font-style: italic; }
+
+  .day-desc {
+    font-size: 2.35vmin;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--ink-soft);
+    flex: 1;
+  }
+
+  .day-desc strong {
+    background: var(--yellow);
+    padding: 0.1vmin 0.6vmin;
+    border-radius: 0.5vmin;
+    font-weight: 800;
+    color: var(--ink);
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  .day-divider {
+    height: 0.3vmin;
+    background: var(--ink);
+    opacity: 0.15;
+    margin: 1.2vmin 0;
+    border-radius: 10vmin;
+  }
+
+  .day-footer-note {
+    font-family: 'Caveat', cursive;
+    font-size: 2.8vmin;
+    font-weight: 700;
+    color: var(--ink-soft);
+    text-align: center;
+    transform: rotate(-1deg);
+  }
+
+  .day-footer-note .accent {
+    color: var(--coral);
+  }
+
+  /* ========== ACTIVE STATE ========== */
+  .day.active {
+    transform: rotate(0deg) scale(1.04) translateY(-0.5vmin) !important;
+    z-index: 10;
+    background: var(--ink) !important;
+    border-color: var(--cyan);
+    box-shadow:
+      0 0 0 0.5vmin var(--cyan),
+      0.8vmin 0.8vmin 0 var(--cyan),
+      0 2vmin 4vmin rgba(5, 195, 222, 0.4);
+  }
+
+  .day.active .day-num-huge { color: var(--cyan); opacity: 0.3; }
+  .day.active .day-tag { background: var(--cyan); color: var(--ink); }
+  .day.active .day-date-small { color: var(--cyan-soft); }
+  .day.active .day-theme { color: var(--cream); }
+  .day.active .day-theme .italic { color: var(--cyan); }
+  .day.active .day-desc { color: var(--cyan-soft); }
+  .day.active .day-desc strong { background: var(--yellow); color: var(--ink); }
+  .day.active .day-divider { background: var(--cyan); opacity: 0.4; }
+  .day.active .day-footer-note { color: var(--cyan-soft); }
+  .day.active .day-footer-note .accent { color: var(--yellow); }
+  .day.active .day-icon-wrap::before { background: rgba(5, 195, 222, 0.12); }
+
+  /* "TODAY!" stamp — sits just above the card without covering the header */
+  .today-stamp {
+    position: absolute;
+    top: -2.5vmin;
+    left: 50%;
+    transform: translateX(-50%) rotate(-6deg) scale(0);
+    background: var(--pink);
+    color: var(--cream);
+    padding: 0.9vmin 2.2vmin;
+    border-radius: 10vmin;
+    font-family: 'Caveat', cursive;
+    font-size: 2.8vmin;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    box-shadow: 0.4vmin 0.4vmin 0 var(--ink);
+    border: 0.3vmin solid var(--ink);
+    white-space: nowrap;
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s;
+    z-index: 20;
+  }
+
+  .day.active .today-stamp {
+    transform: translateX(-50%) rotate(-6deg) scale(1);
+    animation: stampPulse 2s ease-in-out 0.8s infinite;
+  }
+
+  @keyframes stampPulse {
+    0%, 100% { transform: translateX(-50%) rotate(-6deg) scale(1); }
+    50%      { transform: translateX(-50%) rotate(-4deg) scale(1.08); }
+  }
+
+  /* ========== ENTRANCE ========== */
+  .header > * {
+    opacity: 0;
+    animation: pop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+  .header > *:nth-child(1) { animation-delay: 0.1s; }
+  .header > *:nth-child(2) { animation-delay: 0.25s; }
+  .header > *:nth-child(3) { animation-delay: 0.4s; }
+
+  .days .day:nth-child(1) { animation: pop1 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s forwards; opacity: 0; }
+  .days .day:nth-child(2) { animation: pop2 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.65s forwards; opacity: 0; }
+  .days .day:nth-child(3) { animation: pop3 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.8s forwards; opacity: 0; }
+  .days .day:nth-child(4) { animation: pop4 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.95s forwards; opacity: 0; }
+
+  @keyframes pop {
+    0%   { opacity: 0; transform: translateY(2vmin) scale(0.9); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes pop1 {
+    0%   { opacity: 0; transform: translateY(2vmin) rotate(-8deg) scale(0.9); }
+    100% { opacity: 1; transform: translateY(0) rotate(-1.5deg) scale(1); }
+  }
+  @keyframes pop2 {
+    0%   { opacity: 0; transform: translateY(2vmin) rotate(8deg) scale(0.9); }
+    100% { opacity: 1; transform: translateY(0) rotate(1deg) scale(1); }
+  }
+  @keyframes pop3 {
+    0%   { opacity: 0; transform: translateY(2vmin) rotate(-8deg) scale(0.9); }
+    100% { opacity: 1; transform: translateY(0) rotate(-0.8deg) scale(1); }
+  }
+  @keyframes pop4 {
+    0%   { opacity: 0; transform: translateY(2vmin) rotate(8deg) scale(0.9); }
+    100% { opacity: 1; transform: translateY(0) rotate(1.5deg) scale(1); }
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <!-- Floating shapes / doodles -->
+  <svg class="shape" style="top: 8%; left: 34%; width: 5vmin; --r: -15deg;" viewBox="0 0 40 40">
+    <polygon points="20,2 24,15 38,15 27,24 31,38 20,30 9,38 13,24 2,15 16,15" fill="#ffd23f" stroke="#0b1f33" stroke-width="2"/>
+  </svg>
+  <svg class="shape" style="top: 12%; right: 18%; width: 4vmin; --r: 20deg;" viewBox="0 0 40 40">
+    <circle cx="20" cy="20" r="16" fill="#ff6fa3" stroke="#0b1f33" stroke-width="2"/>
+  </svg>
+  <svg class="shape" style="top: 48%; left: 2%; width: 6vmin; --r: -10deg;" viewBox="0 0 60 40">
+    <path d="M5 20 Q 15 5, 30 20 T 55 20" fill="none" stroke="#ff7a59" stroke-width="3" stroke-linecap="round"/>
+  </svg>
+  <svg class="shape" style="bottom: 4%; left: 24%; width: 5vmin; --r: 12deg;" viewBox="0 0 40 40">
+    <rect x="6" y="6" width="28" height="28" fill="#7ee8b8" stroke="#0b1f33" stroke-width="2" transform="rotate(15 20 20)"/>
+  </svg>
+  <svg class="shape" style="bottom: 2%; right: 4%; width: 7vmin; --r: -8deg;" viewBox="0 0 60 60">
+    <path d="M30 5 L35 25 L55 30 L35 35 L30 55 L25 35 L5 30 L25 25 Z" fill="#05c3de" stroke="#0b1f33" stroke-width="2"/>
+  </svg>
+  <svg class="shape" style="top: 45%; right: 1%; width: 4vmin; --r: 25deg;" viewBox="0 0 40 40">
+    <circle cx="20" cy="20" r="14" fill="none" stroke="#b794f4" stroke-width="3" stroke-dasharray="4 4"/>
+  </svg>
+  <svg class="shape" style="top: 3%; left: 48%; width: 3vmin; --r: 0deg;" viewBox="0 0 40 40">
+    <text x="20" y="32" text-anchor="middle" font-size="36" fill="#05c3de">✦</text>
+  </svg>
+  <svg class="shape" style="bottom: 45%; left: 48%; width: 3vmin;" viewBox="0 0 40 40">
+    <text x="20" y="32" text-anchor="middle" font-size="36" fill="#ff6fa3">✦</text>
+  </svg>
+
+  <!-- Squiggles -->
+  <svg class="squiggle" style="top: 2%; left: 8%; width: 10vmin;" viewBox="0 0 100 20">
+    <path d="M2 10 Q 15 2, 25 10 T 48 10 T 72 10 T 98 10" fill="none" stroke="#05c3de" stroke-width="2.5" stroke-linecap="round"/>
+  </svg>
+  <svg class="squiggle" style="bottom: 3%; left: 52%; width: 12vmin;" viewBox="0 0 120 20">
+    <path d="M2 10 Q 20 2, 30 10 T 58 10 T 90 10 T 118 10" fill="none" stroke="#ff6fa3" stroke-width="2.5" stroke-linecap="round"/>
+  </svg>
+
+  <div class="slide">
+
+    <!-- HEADER -->
+    <div class="header">
+      <div class="logo-badge">
+        <img src="https://raw.githubusercontent.com/reneordona/ha_elevator/main/Housing%20Authority%20Logo%20-%20Portrait%20Version-300dpi%20for%20Print-WHITE.png" alt="Housing Authority of the City of Long Beach">
+      </div>
+
+      <div class="title-zone">
+        <div class="presents"><span class="p3">P3</span> Presents</div>
+        <div class="kicker">let&rsquo;s have some fun</div>
+        <h1 class="big-title">
+          <span class="spirit">Spirit</span><span class="week">Week!</span>
+        </h1>
+      </div>
+
+      <div class="date-pill">
+        May <span class="pill-date">4&ndash;7</span>
+      </div>
+    </div>
+
+    <!-- DAYS -->
+    <div class="days">
+
+      <div class="day" data-date="2026-05-04">
+        <div class="today-stamp">today!</div>
+        <div class="day-num-huge">04</div>
+        <div class="day-tag">Monday</div>
+        <div class="day-date-small">May 4th</div>
+        <div class="day-icon-wrap">
+          <div class="day-icon"><img src="https://img.icons8.com/color/1200/darth-vader.png" alt="Darth Vader"></div>
+        </div>
+        <div class="day-theme">May the <span class="italic">4th</span> Be With You</div>
+        <div class="day-divider"></div>
+        <div class="day-desc">Star Wars Day &mdash; suit up as your favorite character from a galaxy far, far away.</div>
+        <div class="day-footer-note">may the <span class="accent">force</span> be with you!</div>
+      </div>
+
+      <div class="day" data-date="2026-05-05">
+        <div class="today-stamp">today!</div>
+        <div class="day-num-huge">05</div>
+        <div class="day-tag">Tuesday</div>
+        <div class="day-date-small">May 5th</div>
+        <div class="day-icon-wrap">
+          <div class="day-icon">&#x1F32E;</div>
+        </div>
+        <div class="day-theme"><span class="italic">Fiesta</span> Potluck</div>
+        <div class="day-divider"></div>
+        <div class="day-desc">Cinco de Mayo! Wear <strong>red, white &amp; green</strong> and bring a dish to share.</div>
+        <div class="day-footer-note">&iexcl;<span class="accent">viva</span> la fiesta!</div>
+      </div>
+
+      <div class="day" data-date="2026-05-06">
+        <div class="today-stamp">today!</div>
+        <div class="day-num-huge">06</div>
+        <div class="day-tag">Wednesday</div>
+        <div class="day-date-small">May 6th</div>
+        <div class="day-icon-wrap">
+          <div class="day-icon">&#x1F33F;</div>
+        </div>
+        <div class="day-theme">Wellness <span class="italic">Wednesday</span></div>
+        <div class="day-divider"></div>
+        <div class="day-desc">Wear green for Mental Health Month and join us for a walk at <strong>10 AM</strong> &amp; <strong>2 PM</strong> around the parking lot!</div>
+        <div class="day-footer-note">let&rsquo;s <span class="accent">move</span> together!</div>
+      </div>
+
+      <div class="day" data-date="2026-05-07">
+        <div class="today-stamp">today!</div>
+        <div class="day-num-huge">07</div>
+        <div class="day-tag">Thursday</div>
+        <div class="day-date-small">May 7th</div>
+        <div class="day-icon-wrap">
+          <div class="day-icon">&#x1F9D8;</div>
+        </div>
+        <div class="day-theme">Mindful <span class="italic">Thursday</span></div>
+        <div class="day-divider"></div>
+        <div class="day-desc">Guided meditation in the <strong>Aquarium Room</strong>. Breathe. Reset. Recenter.</div>
+        <div class="day-footer-note">breathe. <span class="accent">reset.</span> recenter.</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Preview controls removed -->
+
+<script>
+  function toLocalDateString(d) {
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    return yyyy + '-' + mm + '-' + dd;
+  }
+
+  function highlight() {
+    const todayStr = toLocalDateString(new Date());
+    document.querySelectorAll('.day').forEach(el => {
+      el.classList.toggle('active', el.dataset.date === todayStr);
+    });
+  }
+
+  highlight();
+
+  // Re-check every minute in case the slide is left up across midnight
+  setInterval(highlight, 60000);
+</script>
+</body>
+</html>
